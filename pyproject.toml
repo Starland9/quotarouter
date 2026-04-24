@@ -47,7 +47,7 @@ Repository = "https://github.com/Starland9/quotarouter.git"
 Issues = "https://github.com/Starland9/quotarouter/issues"
 
 [tool.setuptools]
-packages = ["quotarouter"]
+packages = { find = { where = ["src"] } }
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
