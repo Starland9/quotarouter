@@ -57,7 +57,7 @@ def _load_dotenv() -> None:
 _load_dotenv()
 
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "Landry Simo"
 
 __all__ = [
