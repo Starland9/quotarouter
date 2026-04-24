@@ -28,7 +28,7 @@ import asyncio
 
 async def main():
     """Run autonomous agent on a project."""
-    
+
     # Initialize agent
     router = FreeRouter(verbose=False)
     agent = AutopilotAgent(

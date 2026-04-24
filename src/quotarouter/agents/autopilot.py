@@ -19,6 +19,7 @@ console = Console()
 
 class TaskStatus(Enum):
     """Task status enumeration."""
+
     PENDING = "pending"
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
@@ -29,6 +30,7 @@ class TaskStatus(Enum):
 @dataclass
 class Task:
     """Development task."""
+
     id: str
     title: str
     description: str
@@ -48,6 +50,7 @@ class Task:
 @dataclass
 class ProjectPlan:
     """Development project plan."""
+
     project_name: str
     description: str
     goals: list[str]
@@ -77,7 +80,7 @@ class ProjectManager:
         """Load existing project plan."""
         if not self.plan_file.exists():
             return None
-        
+
         try:
             with open(self.plan_file, "r") as f:
                 data = json.load(f)
@@ -119,7 +122,7 @@ class ProjectManager:
             }
             for t in plan.tasks
         ]
-        
+
         with open(self.plan_file, "w") as f:
             json.dump(data, f, indent=2)
 
@@ -134,7 +137,13 @@ class ProjectManager:
         completed = sum(1 for t in plan.tasks if t.status == TaskStatus.COMPLETED)
         return completed, total
 
-    def update_task(self, plan: ProjectPlan, task_id: str, status: TaskStatus, error: Optional[str] = None) -> None:
+    def update_task(
+        self,
+        plan: ProjectPlan,
+        task_id: str,
+        status: TaskStatus,
+        error: Optional[str] = None,
+    ) -> None:
         """Update task status."""
         for task in plan.tasks:
             if task.id == task_id:
@@ -173,10 +182,12 @@ class AgentState:
 
     def add_thought(self, thought: str) -> None:
         """Add agent reasoning."""
-        self.thinking.append({
-            "timestamp": datetime.now().isoformat(),
-            "thought": thought,
-        })
+        self.thinking.append(
+            {
+                "timestamp": datetime.now().isoformat(),
+                "thought": thought,
+            }
+        )
 
     def get_summary(self) -> str:
         """Get execution summary."""

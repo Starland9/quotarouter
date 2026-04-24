@@ -14,7 +14,11 @@ from rich.table import Table
 
 from quotarouter.core.router import FreeRouter
 from quotarouter.agents.autopilot import (
-    ProjectManager, ProjectPlan, Task, TaskStatus, AgentState
+    ProjectManager,
+    ProjectPlan,
+    Task,
+    TaskStatus,
+    AgentState,
 )
 
 console = Console()
@@ -31,7 +35,7 @@ class AutopilotAgent:
         auto_approve: bool = False,
     ):
         """Initialize autopilot agent.
-        
+
         Args:
             project_dir: Directory containing the project
             router: QuotaRouter instance for LLM access
@@ -44,7 +48,7 @@ class AutopilotAgent:
         self.state = AgentState()
         self.max_iterations = max_iterations
         self.auto_approve = auto_approve
-        
+
         # System prompt for the agent
         self.system_prompt = """You are an autonomous development agent. Your role is to:
 
@@ -70,11 +74,13 @@ Tools available:
 
     async def analyze_project(self) -> str:
         """Analyze project structure and requirements."""
-        console.print(Panel(
-            "[bold cyan]🔍 Analyzing project structure...[/bold cyan]",
-            border_style="cyan"
-        ))
-        
+        console.print(
+            Panel(
+                "[bold cyan]🔍 Analyzing project structure...[/bold cyan]",
+                border_style="cyan",
+            )
+        )
+
         # Get project overview
         analysis_prompt = f"""Analyze this project structure and requirements:
 
@@ -94,16 +100,18 @@ Be concise but thorough."""
             system=self.system_prompt,
             max_tokens=2000,
         )
-        
+
         return analysis
 
     async def create_plan(self, analysis: str) -> ProjectPlan:
         """Create project development plan based on analysis."""
-        console.print(Panel(
-            "[bold cyan]📋 Creating development plan...[/bold cyan]",
-            border_style="cyan"
-        ))
-        
+        console.print(
+            Panel(
+                "[bold cyan]📋 Creating development plan...[/bold cyan]",
+                border_style="cyan",
+            )
+        )
+
         plan_prompt = f"""Based on this project analysis:
 
 {analysis}
@@ -148,17 +156,17 @@ Only output the JSON, no other text."""
                 )
                 for t in plan_data.get("tasks", [])
             ]
-            
+
             plan = ProjectPlan(
                 project_name=plan_data.get("project_name", "Unknown Project"),
                 description=plan_data.get("description", ""),
                 goals=plan_data.get("goals", []),
                 tasks=tasks,
             )
-            
+
             self.manager.save_plan(plan)
             return plan
-            
+
         except json.JSONDecodeError:
             console.print("[red]Failed to parse plan JSON[/red]")
             # Create minimal plan
@@ -172,19 +180,21 @@ Only output the JSON, no other text."""
     async def execute_task(self, task: Task, plan: ProjectPlan) -> bool:
         """Execute a single task."""
         self.state.iterations += 1
-        
+
         # Update UI
         console.print()
-        console.print(Panel(
-            f"[bold yellow]▶ Task {task.id}[/bold yellow]\n"
-            f"[cyan]{task.title}[/cyan]\n\n"
-            f"[dim]{task.description}[/dim]",
-            border_style="yellow",
-        ))
-        
+        console.print(
+            Panel(
+                f"[bold yellow]▶ Task {task.id}[/bold yellow]\n"
+                f"[cyan]{task.title}[/cyan]\n\n"
+                f"[dim]{task.description}[/dim]",
+                border_style="yellow",
+            )
+        )
+
         # Generate execution plan
         self.state.add_thought(f"Starting task: {task.title}")
-        
+
         execution_prompt = f"""Execute this development task:
 
 Task: {task.title}
@@ -192,7 +202,7 @@ Description: {task.description}
 
 Project context:
 - Name: {plan.project_name}
-- Goals: {', '.join(plan.goals)}
+- Goals: {", ".join(plan.goals)}
 
 Steps to follow:
 1. Understand what needs to be done
@@ -209,16 +219,22 @@ Provide a detailed execution plan with specific file paths and code changes need
             max_tokens=2000,
         )
 
-        console.print(Panel(
-            plan_text,
-            border_style="green",
-            title="📝 Execution Plan",
-        ))
+        console.print(
+            Panel(
+                plan_text,
+                border_style="green",
+                title="📝 Execution Plan",
+            )
+        )
 
         # Request approval unless auto_approve is enabled
         if not self.auto_approve:
-            console.print("\n[yellow]Review the plan above and confirm continuation:[/yellow]")
-            console.print("[dim]Press Enter to continue or 'skip' to skip this task...[/dim]")
+            console.print(
+                "\n[yellow]Review the plan above and confirm continuation:[/yellow]"
+            )
+            console.print(
+                "[dim]Press Enter to continue or 'skip' to skip this task...[/dim]"
+            )
             response = input("> ").strip().lower()
             if response == "skip":
                 return False
@@ -235,28 +251,32 @@ Provide the actual code/changes needed. Be specific about file paths and line nu
                 max_tokens=3000,
             )
 
-        console.print(Panel(
-            execution,
-            border_style="green",
-            title="✅ Implementation",
-        ))
+        console.print(
+            Panel(
+                execution,
+                border_style="green",
+                title="✅ Implementation",
+            )
+        )
 
         self.manager.log_task(task.id, f"Execution result:\n{execution}")
-        
+
         self.state.tasks_completed += 1
         return True
 
     async def run_autopilot(self, create_new_plan: bool = False) -> None:
         """Run autonomous development agent."""
-        
-        console.print(Panel(
-            "[bold cyan]🚀 QuotaRouter Autopilot Agent[/bold cyan]\n\n"
-            f"[cyan]Project:[/cyan] {self.project_dir}\n"
-            f"[cyan]Max iterations:[/cyan] {self.max_iterations}\n"
-            f"[cyan]Auto-approve:[/cyan] {'Yes' if self.auto_approve else 'No'}",
-            border_style="cyan",
-            title="🤖 Autopilot Started",
-        ))
+
+        console.print(
+            Panel(
+                "[bold cyan]🚀 QuotaRouter Autopilot Agent[/bold cyan]\n\n"
+                f"[cyan]Project:[/cyan] {self.project_dir}\n"
+                f"[cyan]Max iterations:[/cyan] {self.max_iterations}\n"
+                f"[cyan]Auto-approve:[/cyan] {'Yes' if self.auto_approve else 'No'}",
+                border_style="cyan",
+                title="🤖 Autopilot Started",
+            )
+        )
 
         # Load or create plan
         plan = None
@@ -274,14 +294,16 @@ Provide the actual code/changes needed. Be specific about file paths and line nu
         iteration = 0
         while iteration < self.max_iterations:
             iteration += 1
-            
+
             # Check if complete
             if self.manager.is_project_complete(plan):
-                console.print(Panel(
-                    "[bold green]✅ All tasks completed![/bold green]",
-                    border_style="green",
-                    title="🎉 Project Complete",
-                ))
+                console.print(
+                    Panel(
+                        "[bold green]✅ All tasks completed![/bold green]",
+                        border_style="green",
+                        title="🎉 Project Complete",
+                    )
+                )
                 break
 
             # Get next pending task
@@ -294,14 +316,14 @@ Provide the actual code/changes needed. Be specific about file paths and line nu
             # Execute task
             try:
                 success = await self.execute_task(task, plan)
-                
+
                 if success:
                     self.manager.update_task(plan, task.id, TaskStatus.COMPLETED)
                 else:
                     self.manager.update_task(plan, task.id, TaskStatus.BLOCKED)
-                
+
                 self.manager.save_plan(plan)
-                
+
             except Exception as e:
                 console.print(f"[red]Error executing task: {e}[/red]")
                 self.manager.update_task(plan, task.id, TaskStatus.FAILED, str(e))
@@ -310,36 +332,55 @@ Provide the actual code/changes needed. Be specific about file paths and line nu
 
             # Show progress
             completed, total = self.manager.get_task_progress(plan)
-            console.print(f"\n[cyan]Progress: {completed}/{total} tasks completed[/cyan]")
+            console.print(
+                f"\n[cyan]Progress: {completed}/{total} tasks completed[/cyan]"
+            )
 
         # Final summary
         self._display_summary(plan)
 
     def _display_plan(self, plan: ProjectPlan) -> None:
         """Display project plan."""
-        table = Table(title=plan.project_name, show_header=True, header_style="bold cyan")
+        table = Table(
+            title=plan.project_name, show_header=True, header_style="bold cyan"
+        )
         table.add_column("Task", style="cyan", width=30)
         table.add_column("Description", width=50)
         table.add_column("Priority", justify="center", width=12)
 
         for task in plan.tasks:
-            priority_emoji = "🔴" if task.priority == 1 else "🟡" if task.priority == 2 else "🟢"
-            table.add_row(task.title, task.description[:47] + "...", f"{priority_emoji} {task.priority}")
+            priority_emoji = (
+                "🔴" if task.priority == 1 else "🟡" if task.priority == 2 else "🟢"
+            )
+            table.add_row(
+                task.title,
+                task.description[:47] + "...",
+                f"{priority_emoji} {task.priority}",
+            )
 
         console.print(table)
 
     def _display_summary(self, plan: ProjectPlan) -> None:
         """Display execution summary."""
         completed, total = self.manager.get_task_progress(plan)
-        
-        table = Table(title="Execution Summary", show_header=True, header_style="bold green")
+
+        table = Table(
+            title="Execution Summary", show_header=True, header_style="bold green"
+        )
         table.add_column("Metric", style="cyan")
         table.add_column("Value", style="green")
 
         table.add_row("Total Tasks", str(total))
         table.add_row("Completed", str(completed))
-        table.add_row("Success Rate", f"{completed/total*100:.1f}%" if total > 0 else "0%")
+        table.add_row(
+            "Success Rate", f"{completed / total * 100:.1f}%" if total > 0 else "0%"
+        )
         table.add_row("Iterations", str(self.state.iterations))
-        table.add_row("Status", "✅ Complete" if self.manager.is_project_complete(plan) else "⏳ In Progress")
+        table.add_row(
+            "Status",
+            "✅ Complete"
+            if self.manager.is_project_complete(plan)
+            else "⏳ In Progress",
+        )
 
         console.print(table)

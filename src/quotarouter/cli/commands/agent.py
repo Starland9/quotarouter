@@ -13,40 +13,25 @@ console = Console()
 
 
 def agent_command(
-    project_dir: str = typer.Argument(
-        ".",
-        help="Project directory to develop"
-    ),
+    project_dir: str = typer.Argument(".", help="Project directory to develop"),
     autopilot: bool = typer.Option(
-        False,
-        "--autopilot",
-        "-a",
-        help="Run in fully autonomous mode without prompts"
+        False, "--autopilot", "-a", help="Run in fully autonomous mode without prompts"
     ),
     new_plan: bool = typer.Option(
-        False,
-        "--new",
-        "-n",
-        help="Create a new plan instead of loading existing one"
+        False, "--new", "-n", help="Create a new plan instead of loading existing one"
     ),
     max_iterations: int = typer.Option(
-        100,
-        "--max-iterations",
-        "-m",
-        help="Maximum iterations before stopping"
+        100, "--max-iterations", "-m", help="Maximum iterations before stopping"
     ),
     system_prompt: str = typer.Option(
-        None,
-        "--system",
-        "-s",
-        help="Custom system prompt for the agent"
+        None, "--system", "-s", help="Custom system prompt for the agent"
     ),
 ):
     """
     🤖 Autonomous development agent with autopilot mode.
 
     Automatically plans, implements, and completes development tasks.
-    
+
     Features:
     • Project analysis and planning
     • Autonomous task execution
@@ -69,23 +54,25 @@ def agent_command(
     5. Track progress and save state
     6. Continue until all tasks are complete
     """
-    
+
     try:
         project_path = Path(project_dir).expanduser().resolve()
-        
+
         if not project_path.exists():
             console.print(f"[red]❌ Project directory not found: {project_path}[/red]")
             raise typer.Exit(code=1)
 
         # Welcome message
-        console.print(Panel(
-            "[bold cyan]🤖 QuotaRouter Autopilot Agent[/bold cyan]\n\n"
-            f"[cyan]📁 Project:[/cyan] {project_path}\n"
-            f"[cyan]🔄 Iterations:[/cyan] {max_iterations}\n"
-            f"[cyan]⚙️  Mode:[/cyan] {'Fully Autonomous' if autopilot else 'Interactive'}",
-            border_style="cyan",
-            title="🚀 Starting Autopilot",
-        ))
+        console.print(
+            Panel(
+                "[bold cyan]🤖 QuotaRouter Autopilot Agent[/bold cyan]\n\n"
+                f"[cyan]📁 Project:[/cyan] {project_path}\n"
+                f"[cyan]🔄 Iterations:[/cyan] {max_iterations}\n"
+                f"[cyan]⚙️  Mode:[/cyan] {'Fully Autonomous' if autopilot else 'Interactive'}",
+                border_style="cyan",
+                title="🚀 Starting Autopilot",
+            )
+        )
 
         # Initialize agent
         with console.status("[bold cyan]🔧 Initializing agent...[/bold cyan]"):
@@ -104,12 +91,14 @@ def agent_command(
         # Run autopilot
         asyncio.run(agent.run_autopilot(create_new_plan=new_plan))
 
-        console.print(Panel(
-            "[bold green]✅ Autopilot session complete![/bold green]\n\n"
-            f"[cyan]📊 Results saved to:[/cyan] {project_path}/.autopilot",
-            border_style="green",
-            title="🎉 Complete",
-        ))
+        console.print(
+            Panel(
+                "[bold green]✅ Autopilot session complete![/bold green]\n\n"
+                f"[cyan]📊 Results saved to:[/cyan] {project_path}/.autopilot",
+                border_style="green",
+                title="🎉 Complete",
+            )
+        )
 
     except KeyboardInterrupt:
         console.print("\n[yellow]⏹️  Autopilot interrupted by user[/yellow]")
@@ -117,5 +106,6 @@ def agent_command(
     except Exception as e:
         console.print(f"[red]❌ Fatal error:[/red] {str(e)}")
         import traceback
+
         traceback.print_exc()
         raise typer.Exit(code=1)
