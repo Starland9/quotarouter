@@ -1,5 +1,8 @@
 """Unit tests for FreeRouter core functionality."""
 
+import importlib
+import os
+
 import pytest
 from unittest.mock import patch, MagicMock
 
@@ -203,6 +206,20 @@ class TestFreeRouter:
             selected = router._select_provider()
             assert selected is not None
             assert selected.id == "test1"
+
+    def test_load_env_from_dotenv(self, monkeypatch, tmp_path):
+        """Test loading environment variables from a .env file."""
+        env_path = tmp_path / ".env"
+        env_path.write_text('TEST_DOTENV_KEY="dotenv-secret"\n')
+
+        monkeypatch.chdir(tmp_path)
+        monkeypatch.delenv("TEST_DOTENV_KEY", raising=False)
+
+        import quotarouter as qr
+
+        importlib.reload(qr)
+
+        assert os.getenv("TEST_DOTENV_KEY") == "dotenv-secret"
 
     def test_quota_exhaustion(self):
         """Test quota exhaustion detection."""
