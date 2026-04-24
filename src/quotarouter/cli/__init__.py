@@ -19,6 +19,7 @@ from .commands import (
     book_command,
     api_command,
     chat_command,
+    agent_command,
 )
 
 console = Console()
@@ -38,6 +39,7 @@ app.command(name="reset")(reset_command)
 app.command(name="book")(book_command)
 app.command(name="api")(api_command)
 app.command(name="chat")(chat_command)
+app.command(name="agent")(agent_command)
 
 
 @app.callback()

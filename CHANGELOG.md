@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-04-24
+
+### Added
+- **🤖 Autonomous Development Agent** - Full-featured autonomous agent for project development:
+  - `quotarouter agent` command for automated project development
+  - Project analysis and automatic planning
+  - Task-based execution with progress tracking
+  - Two modes: interactive (with approval) and autopilot (fully autonomous)
+  - `--autopilot` flag for hands-off operation
+  - `--new` flag to create fresh plans
+  - Custom system prompts with `--system` option
+  - Max iterations control with `--max-iterations`
+  - State persistence with `autopilot_plan.json`
+  - Execution logs in `.autopilot/` directory
+  - Task prioritization (high/medium/low)
+  - Error recovery with retry limits
+  - Rich UI with progress bars and status tables
+- **Project Management System**:
+  - ProjectManager class for plan persistence
+  - Task lifecycle management (pending → in_progress → completed/failed)
+  - AgentState for tracking execution metrics
+  - Support for resuming interrupted work
+  - Comprehensive task logging
+- **Agent Capabilities**:
+  - Autonomous project analysis
+  - Intelligent task planning with priorities
+  - Interactive approval workflow (optional)
+  - Full autopilot mode with `--autopilot` flag
+  - Graceful error handling and recovery
+  - Progress visualization with tables and panels
+- **CLI Command Examples**:
+  - `quotarouter agent .` - Interactive mode
+  - `quotarouter agent . --autopilot` - Fully autonomous
+  - `quotarouter agent . --new --autopilot` - New plan, autonomous
+  - `quotarouter agent . --system "You are a Python expert"` - Custom prompt
+  - `quotarouter agent . --max-iterations 50` - Limited iterations
+- **Documentation**:
+  - Comprehensive guide in `docs/AUTOPILOT_AGENT.md`
+  - Complete Python API examples
+  - Best practices and troubleshooting
+
 ## [0.9.0] - 2026-04-24
 
 ### Added
@@ -25,6 +66,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Graceful error handling with auto-recovery
   - Support for both streaming and non-streaming responses
   - Usage: `quotarouter chat`, `quotarouter chat --system "You are a Python expert"`, `quotarouter chat --max-tokens 8000`
+- **Enhanced Chat UI**:
+  - Animated loading indicators with spinners
+  - Progress visualizations
+  - Formatted help panels with emojis
+  - Status table with color-coded quota usage
+  - Message panels with user/assistant icons
+  - Auto-saving animations
 
 ## [0.8.0] - 2026-04-24
 
