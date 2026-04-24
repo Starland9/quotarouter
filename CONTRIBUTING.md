@@ -7,8 +7,8 @@ We love your input! We want to make contributing to FreeRouter as easy and trans
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Starland9/freerouter.git
-cd freerouter
+git clone https://github.com/Starland9/quotarouter.git
+cd quotarouter
 ```
 
 ### 2. Create a virtual environment
@@ -75,7 +75,7 @@ def complete_stream(
 pytest
 
 # Run with coverage
-pytest --cov=freerouter --cov-report=html
+pytest --cov=quotarouter --cov-report=html
 
 # Run specific test file
 pytest tests/test_core.py
@@ -90,7 +90,7 @@ Tests go in `tests/test_*.py`. Use pytest conventions:
 
 ```python
 import pytest
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 class TestFreeRouter:
     def test_router_initialization(self):
@@ -108,7 +108,7 @@ class TestFreeRouter:
 Aim for >80% coverage:
 
 ```bash
-pytest --cov=freerouter --cov-report=term-missing
+pytest --cov=quotarouter --cov-report=term-missing
 ```
 
 ## Process
@@ -181,15 +181,15 @@ FreeRouter follows **SOLID principles**:
 
 ### Adding a New Adapter
 
-1. Create `src/freerouter/providers/your_adapter.py`
+1. Create `src/quotarouter/providers/your_adapter.py`
 2. Implement `ProviderAdapter` ABC
 3. Add tests in `tests/test_your_adapter.py`
-4. Update `src/freerouter/providers/__init__.py`
+4. Update `src/quotarouter/providers/__init__.py`
 5. Document in `docs/API.md`
 
 ### Adding a New Provider
 
-1. Add to `src/freerouter/config/registry.py`
+1. Add to `src/quotarouter/config/registry.py`
 2. Add environment variable to `.env.example`
 3. Update README with provider info
 
@@ -288,7 +288,7 @@ Include:
 
 ## Questions?
 
-- Open a [Discussion](https://github.com/Starland9/freerouter/discussions)
+- Open a [Discussion](https://github.com/Starland9/quotarouter/discussions)
 - Ask in Issues
 - Email: landrysimo99@gmail.com
 

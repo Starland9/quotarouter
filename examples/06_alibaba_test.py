@@ -8,8 +8,8 @@ Execute: python examples/06_alibaba_test.py
 
 import os
 import json
-from freerouter import FreeRouter, DEFAULT_PROVIDERS
-from freerouter.config.registry import get_provider_by_id
+from quotarouter import FreeRouter, DEFAULT_PROVIDERS
+from quotarouter.config.registry import get_provider_by_id
 
 
 def print_section(title):

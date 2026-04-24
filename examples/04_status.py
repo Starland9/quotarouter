@@ -6,7 +6,7 @@ Shows how to check quota status and monitor token usage across providers.
 """
 
 import json
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 
 def main():

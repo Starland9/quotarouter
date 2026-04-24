@@ -5,7 +5,7 @@
 ### 1. Install
 
 ```bash
-pip install freerouter
+pip install quotarouter
 ```
 
 ### 2. Get API Keys
@@ -42,7 +42,7 @@ OPENROUTER_API_KEY=sk-or-...
 ### 4. Start Using
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 
@@ -93,7 +93,7 @@ print(f"Assistant: {response2}")
 ### Use Only Certain Providers
 
 ```python
-from freerouter import FreeRouter, DEFAULT_PROVIDERS
+from quotarouter import FreeRouter, DEFAULT_PROVIDERS
 
 # Use only Groq and Mistral
 providers = [p for p in DEFAULT_PROVIDERS if p.id in ["groq", "mistral"]]
@@ -196,8 +196,8 @@ Yes! FreeRouter is production-ready with error handling, logging, and type hints
 ## Support
 
 - 📖 [Documentation](README.md)
-- 💬 [GitHub Discussions](https://github.com/Starland9/freerouter/discussions)
-- 🐛 [Report Issues](https://github.com/Starland9/freerouter/issues)
+- 💬 [GitHub Discussions](https://github.com/Starland9/quotarouter/discussions)
+- 🐛 [Report Issues](https://github.com/Starland9/quotarouter/issues)
 - 📧 [Email](mailto:landrysimo99@gmail.com)
 
 ---

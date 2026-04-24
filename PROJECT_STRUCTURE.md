@@ -1,13 +1,13 @@
 # FreeRouter Project Structure
 
 ```
-freerouter/
+quotarouter/
 │
 ├── 📁 .github/
 │   └── workflows/
 │       └── tests.yml                 # CI/CD pipeline
 │
-├── 📁 src/freerouter/               # Main package
+├── 📁 src/quotarouter/               # Main package
 │   ├── __init__.py                  # Package exports
 │   │
 │   ├── 📁 core/                     # Core logic (SOLID)
@@ -136,7 +136,7 @@ pip install -e ".[dev]"
 
 ### Run Tests
 ```bash
-pytest --cov=freerouter
+pytest --cov=quotarouter
 ```
 
 ### Code Quality
@@ -155,7 +155,7 @@ python examples/02_streaming.py
 
 ## File Purposes
 
-### Core Package (`src/freerouter/`)
+### Core Package (`src/quotarouter/`)
 - **Clean, modular, extensible**
 - No business logic in single monolithic file
 - Clear separation of concerns

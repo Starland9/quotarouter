@@ -1,16 +1,16 @@
-"""Setup configuration for freerouter."""
+"""Setup configuration for quotarouter."""
 
 from setuptools import setup, find_packages
 
 setup(
-    name="freerouter",
+    name="quotarouter",
     version="0.1.0",
     author="Landry Simo",
     author_email="landrysimo99@gmail.com",
     description="Quota-aware LLM routing engine with automatic provider fallback",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/Starland9/freerouter",
+    url="https://github.com/Starland9/quotarouter",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     python_requires=">=3.8",

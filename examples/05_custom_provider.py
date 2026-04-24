@@ -5,7 +5,7 @@ Custom provider example: Use custom provider configuration.
 Shows how to define and use custom providers with FreeRouter.
 """
 
-from freerouter import FreeRouter, ProviderConfig
+from quotarouter import FreeRouter, ProviderConfig
 
 
 def main():

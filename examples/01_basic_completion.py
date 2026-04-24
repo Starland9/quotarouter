@@ -5,7 +5,7 @@ Simple example: Basic completion.
 Shows how to use FreeRouter for a single completion request.
 """
 
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 
 def main():

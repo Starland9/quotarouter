@@ -3,13 +3,13 @@
 import pytest
 from unittest.mock import patch, MagicMock
 
-from freerouter.core.types import (
+from quotarouter.core.types import (
     ProviderConfig,
     CompletionRequest,
 )
-from freerouter.core.router import FreeRouter
-from freerouter.storage import InMemoryQuotaStorage
-from freerouter.providers import OpenAICompatibleAdapter
+from quotarouter.core.router import FreeRouter
+from quotarouter.storage import InMemoryQuotaStorage
+from quotarouter.providers import OpenAICompatibleAdapter
 
 
 class TestProviderConfig:

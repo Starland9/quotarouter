@@ -135,3 +135,8 @@ Thumbs.db
 
 # Project specific
 .freerouter_quotas.json
+DEPLOY_FINAL.md
+GITHUB_SECRETS_SETUP.md
+PUBLISH_CHECKLIST.md
+PUBLISH.md
+scripts/deploy_to_pypi.sh

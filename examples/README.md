@@ -28,7 +28,7 @@ Shows:
 - Check quota status
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 response = router.complete("Explain machine learning")
@@ -132,8 +132,8 @@ except Exception as e:
 ### Testing with In-Memory Storage
 
 ```python
-from freerouter import FreeRouter
-from freerouter.storage import InMemoryQuotaStorage
+from quotarouter import FreeRouter
+from quotarouter.storage import InMemoryQuotaStorage
 
 router = FreeRouter(
     storage=InMemoryQuotaStorage(),

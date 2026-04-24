@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Before Release
 - Update CHANGELOG.md
-- Update version in `src/freerouter/__init__.py`
+- Update version in `src/quotarouter/__init__.py`
 - Run full test suite
 - Update README if needed
 - Tag commit with version
@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ```bash
 # Update version
 # Update CHANGELOG
-git add CHANGELOG.md src/freerouter/__init__.py
+git add CHANGELOG.md src/quotarouter/__init__.py
 git commit -m "chore: release v0.2.0"
 
 # Tag release
@@ -72,5 +72,5 @@ twine upload dist/*
 
 ---
 
-[Unreleased]: https://github.com/Starland9/freerouter/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Starland9/freerouter/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Starland9/quotarouter/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Starland9/quotarouter/releases/tag/v0.1.0

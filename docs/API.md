@@ -302,7 +302,7 @@ Works with:
 - Any OpenAI-compatible endpoint
 
 ```python
-from freerouter.providers import OpenAICompatibleAdapter
+from quotarouter.providers import OpenAICompatibleAdapter
 
 adapter = OpenAICompatibleAdapter()
 router = FreeRouter(adapter=adapter)
@@ -312,10 +312,10 @@ router = FreeRouter(adapter=adapter)
 
 File-based storage (default).
 
-Stores to `~/.freerouter_quotas.json`
+Stores to `~/.quotarouter_quotas.json`
 
 ```python
-from freerouter.storage import JSONQuotaStorage
+from quotarouter.storage import JSONQuotaStorage
 
 storage = JSONQuotaStorage()
 router = FreeRouter(storage=storage)
@@ -326,7 +326,7 @@ router = FreeRouter(storage=storage)
 In-memory storage for testing.
 
 ```python
-from freerouter.storage import InMemoryQuotaStorage
+from quotarouter.storage import InMemoryQuotaStorage
 
 storage = InMemoryQuotaStorage()
 router = FreeRouter(storage=storage)
@@ -341,7 +341,7 @@ router = FreeRouter(storage=storage)
 Pre-configured providers:
 
 ```python
-from freerouter import DEFAULT_PROVIDERS
+from quotarouter import DEFAULT_PROVIDERS
 
 for provider in DEFAULT_PROVIDERS:
     print(f"{provider.name}: {provider.daily_token_limit} tokens/day")
@@ -359,7 +359,7 @@ Providers included:
 Lookup provider by ID.
 
 ```python
-from freerouter import get_provider_by_id
+from quotarouter import get_provider_by_id
 
 provider = get_provider_by_id("groq")
 ```
@@ -408,7 +408,7 @@ import logging
 
 # Enable debug logging
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("freerouter")
+logger = logging.getLogger("quotarouter")
 
 router = FreeRouter()
 ```
@@ -426,7 +426,7 @@ Log levels:
 ### Simple Completion
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 answer = router.complete("What is Python?")
@@ -465,7 +465,7 @@ for p in status["providers"]:
 ### Custom Configuration
 
 ```python
-from freerouter import FreeRouter, ProviderConfig
+from quotarouter import FreeRouter, ProviderConfig
 
 providers = [
     ProviderConfig(

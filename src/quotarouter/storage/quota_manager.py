@@ -22,7 +22,7 @@ class JSONQuotaStorage(QuotaStorage):
     """
     File-based quota storage using JSON.
 
-    Stores quota state in a JSON file at ~/.freerouter_quotas.json
+    Stores quota state in a JSON file at ~/.quotarouter_quotas.json
     with daily reset logic.
     """
 
@@ -31,9 +31,9 @@ class JSONQuotaStorage(QuotaStorage):
         Initialize storage.
 
         Args:
-            storage_path: Path to quota file. Defaults to ~/.freerouter_quotas.json
+            storage_path: Path to quota file. Defaults to ~/.quotarouter_quotas.json
         """
-        self.path = storage_path or Path.home() / ".freerouter_quotas.json"
+        self.path = storage_path or Path.home() / ".quotarouter_quotas.json"
 
     def load_quotas(self) -> Dict[str, int]:
         """

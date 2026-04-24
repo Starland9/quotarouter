@@ -3,7 +3,7 @@ requires = ["setuptools>=65.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "freerouter"
+name = "quotarouter"
 version = "0.1.0"
 description = "Quota-aware LLM routing engine with automatic provider fallback"
 readme = "README.md"
@@ -41,17 +41,17 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Starland9/freerouter"
-Documentation = "https://github.com/Starland9/freerouter#readme"
-Repository = "https://github.com/Starland9/freerouter.git"
-Issues = "https://github.com/Starland9/freerouter/issues"
+Homepage = "https://github.com/Starland9/quotarouter"
+Documentation = "https://github.com/Starland9/quotarouter#readme"
+Repository = "https://github.com/Starland9/quotarouter.git"
+Issues = "https://github.com/Starland9/quotarouter/issues"
 
 [tool.setuptools]
-packages = ["freerouter"]
+packages = ["quotarouter"]
 package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-freerouter = ["py.typed"]
+quotarouter = ["py.typed"]
 
 [tool.black]
 line-length = 100

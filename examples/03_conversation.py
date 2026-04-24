@@ -5,7 +5,7 @@ Conversation example: Multi-turn conversation.
 Shows how to maintain conversation history with FreeRouter.
 """
 
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 
 def main():

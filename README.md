@@ -1,12 +1,12 @@
-# 🔀 FreeRouter
+# 🔀 QuotaRouter
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Tests](https://github.com/Starland9/freerouter/actions/workflows/tests.yml/badge.svg)](https://github.com/Starland9/freerouter/actions)
+[![Tests](https://github.com/Starland9/quotarouter/actions/workflows/tests.yml/badge.svg)](https://github.com/Starland9/quotarouter/actions)
 
 **Quota-aware LLM routing engine with automatic provider fallback.**
 
-FreeRouter automatically routes your LLM requests across multiple free-tier providers (Cerebras, Groq, Google AI Studio, Mistral, OpenRouter), seamlessly switching to the next provider when daily token quotas are exhausted.
+QuotaRouter automatically routes your LLM requests across multiple free-tier providers (Cerebras, Groq, Google AI Studio, Mistral, OpenRouter), seamlessly switching to the next provider when daily token quotas are exhausted.
 
 ## ✨ Features
 
@@ -24,14 +24,14 @@ FreeRouter automatically routes your LLM requests across multiple free-tier prov
 ### Installation
 
 ```bash
-pip install freerouter
+pip install quotarouter
 ```
 
 Or from source:
 
 ```bash
-git clone https://github.com/Starland9/freerouter
-cd freerouter
+git clone https://github.com/Starland9/quotarouter
+cd quotarouter
 pip install -e ".[dev]"
 ```
 
@@ -62,7 +62,7 @@ print(response)
 ### Streaming
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 
@@ -74,7 +74,7 @@ for chunk in router.complete_stream("Write a 500-word essay on AI"):
 ### Check Quota Status
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 
@@ -102,7 +102,7 @@ print(status)
 ### Custom Provider Configuration
 
 ```python
-from freerouter import FreeRouter, ProviderConfig
+from quotarouter import FreeRouter, ProviderConfig
 
 # Define custom providers
 custom_providers = [
@@ -125,8 +125,8 @@ router = FreeRouter(providers=custom_providers)
 ### Custom Quota Storage
 
 ```python
-from freerouter import FreeRouter
-from freerouter.storage import InMemoryQuotaStorage
+from quotarouter import FreeRouter
+from quotarouter.storage import InMemoryQuotaStorage
 
 # Use in-memory storage (useful for testing)
 storage = InMemoryQuotaStorage()
@@ -138,7 +138,7 @@ router = FreeRouter(storage=storage)
 Split large tasks across providers:
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 
@@ -160,7 +160,7 @@ for i, chunk in enumerate(chunks):
 ### System Prompts & History
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 
@@ -187,7 +187,7 @@ print(response)
 FreeRouter is built with **SOLID principles** for maintainability and extensibility:
 
 ```
-freerouter/
+quotarouter/
 ├── core/              # Router logic & type definitions
 ├── providers/         # API adapters (OpenAI-compatible)
 ├── config/            # Provider registry & configuration
@@ -241,7 +241,7 @@ freerouter/
 ### Add a New Provider
 
 ```python
-from freerouter import ProviderConfig, FreeRouter
+from quotarouter import ProviderConfig, FreeRouter
 
 new_provider = ProviderConfig(
     id="your-provider",
@@ -261,7 +261,7 @@ router = FreeRouter(providers=[new_provider])
 ### Custom Adapter
 
 ```python
-from freerouter.core import ProviderAdapter, ProviderConfig
+from quotarouter.core import ProviderAdapter, ProviderConfig
 from typing import Iterator
 
 class MyCustomAdapter(ProviderAdapter):
@@ -278,7 +278,7 @@ router = FreeRouter(adapter=MyCustomAdapter())
 
 ## 📊 Quota Tracking
 
-FreeRouter automatically persists quotas to `~/.freerouter_quotas.json`:
+FreeRouter automatically persists quotas to `~/.quotarouter_quotas.json`:
 
 ```json
 {
@@ -305,7 +305,7 @@ pip install -e ".[dev]"
 pytest
 
 # Run with coverage
-pytest --cov=freerouter --cov-report=html
+pytest --cov=quotarouter --cov-report=html
 
 # Code quality
 black src/ tests/
@@ -316,7 +316,7 @@ mypy src/
 ## 🐛 Error Handling
 
 ```python
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 router = FreeRouter()
 
@@ -364,7 +364,7 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## 📧 Contact
 
-Have questions or feedback? Open an [Issue](https://github.com/Starland9/freerouter/issues) or [Discussion](https://github.com/Starland9/freerouter/discussions).
+Have questions or feedback? Open an [Issue](https://github.com/Starland9/quotarouter/issues) or [Discussion](https://github.com/Starland9/quotarouter/discussions).
 
 ## 🗺️ Roadmap
 
@@ -373,7 +373,7 @@ Have questions or feedback? Open an [Issue](https://github.com/Starland9/freerou
 - [ ] Advanced scheduling and load balancing
 - [ ] Caching for identical prompts
 - [ ] Cost tracking and analytics
-- [ ] CLI tool (`freerouter` command)
+- [ ] CLI tool (`quotarouter` command)
 
 ---
 

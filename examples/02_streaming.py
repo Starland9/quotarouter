@@ -5,7 +5,7 @@ Streaming example: Stream responses.
 Shows how to stream responses from FreeRouter, useful for long responses.
 """
 
-from freerouter import FreeRouter
+from quotarouter import FreeRouter
 
 
 def main():

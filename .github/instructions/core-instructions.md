@@ -39,7 +39,7 @@ FreeRouter strictly follows **SOLID principles** to ensure maintainability and e
 **NEVER** deviate from this structure:
 
 ```
-src/freerouter/
+src/quotarouter/
 ├── core/
 │   ├── types.py         ← Abstract interfaces & data models ONLY
 │   └── router.py        ← Main routing logic ONLY
@@ -52,7 +52,7 @@ src/freerouter/
 ```
 
 **Rules:**
-- New code goes in `src/freerouter/`, NOT at root
+- New code goes in `src/quotarouter/`, NOT at root
 - Never create new directories without justification
 - Keep module names singular and descriptive
 
@@ -142,7 +142,7 @@ from ..storage.quota_manager import JSONQuotaStorage  # Should inject instead
       adapter.complete(...)
 
   # ❌ Wrong - doesn't patch the right location
-  with patch("freerouter.providers.openai_compatible.OpenAI"):
+  with patch("quotarouter.providers.openai_compatible.OpenAI"):
       pass
   ```
 

@@ -5,7 +5,7 @@ Automatically routes LLM requests across free-tier providers,
 switching to the next provider when quota is exhausted.
 
 Example:
-    >>> from freerouter import FreeRouter
+    >>> from quotarouter import FreeRouter
     >>> router = FreeRouter()
     >>> response = router.complete("Explain quantum computing")
     >>> print(response)

@@ -113,7 +113,7 @@ class FreeRouter:
 ### Module Organization
 
 ```
-src/freerouter/
+src/quotarouter/
 ├── __init__.py              # Package exports
 ├── core/
 │   ├── __init__.py
@@ -179,7 +179,7 @@ router.complete()
 ### Adding a New Provider
 
 ```python
-from freerouter import FreeRouter, ProviderConfig
+from quotarouter import FreeRouter, ProviderConfig
 
 # 1. Define provider config
 provider = ProviderConfig(
@@ -202,7 +202,7 @@ router = FreeRouter(providers=[provider])
 ### Implementing a Custom Adapter
 
 ```python
-from freerouter.core.types import ProviderAdapter, ProviderConfig
+from quotarouter.core.types import ProviderAdapter, ProviderConfig
 from typing import Iterator
 
 class AnthropicAdapter(ProviderAdapter):
@@ -231,7 +231,7 @@ router = FreeRouter(adapter=AnthropicAdapter())
 ### Custom Quota Storage
 
 ```python
-from freerouter.core.types import QuotaStorage
+from quotarouter.core.types import QuotaStorage
 
 class RedisQuotaStorage(QuotaStorage):
     def __init__(self, redis_client):
@@ -318,7 +318,7 @@ estimate = len(text) // 4
 ### Quota File Permissions
 
 ```python
-# ~/.freerouter_quotas.json contains no sensitive data
+# ~/.quotarouter_quotas.json contains no sensitive data
 # Only stores token counts
 # Safe to commit to version control (in .gitignore)
 ```
