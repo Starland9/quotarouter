@@ -11,6 +11,7 @@ from .config import config_command
 from .reset import reset_command
 from .book import book_command
 from .api import api_command
+from .chat import chat_command
 
 __all__ = [
     "status_command",
@@ -20,4 +21,5 @@ __all__ = [
     "reset_command",
     "book_command",
     "api_command",
+    "chat_command",
 ]

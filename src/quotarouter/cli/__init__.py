@@ -18,6 +18,7 @@ from .commands import (
     reset_command,
     book_command,
     api_command,
+    chat_command,
 )
 
 console = Console()
@@ -36,6 +37,7 @@ app.command(name="config")(config_command)
 app.command(name="reset")(reset_command)
 app.command(name="book")(book_command)
 app.command(name="api")(api_command)
+app.command(name="chat")(chat_command)
 
 
 @app.callback()

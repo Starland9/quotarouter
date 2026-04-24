@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-04-24
+
+### Added
+- **Interactive Chat Command** - Full-featured terminal chat with persistent memory:
+  - `quotarouter chat` command for interactive multi-turn conversations
+  - Automatic conversation history persistence (JSON format, auto-save)
+  - Command interface for chat management:
+    - `/stream` prefix for real-time streaming responses
+    - `/status` to monitor provider quotas and availability
+    - `/system` to customize system prompts dynamically
+    - `/history`, `/clear`, `/load`, `/save` for conversation management
+    - `/help` for in-app documentation
+  - Beautiful Rich-formatted interface with panels and syntax highlighting
+  - System prompt customization via CLI option or `/system` command
+  - Configurable history file location (default: `~/.quotarouter/chat_history.json`)
+  - Graceful error handling with auto-recovery
+  - Support for both streaming and non-streaming responses
+  - Usage: `quotarouter chat`, `quotarouter chat --system "You are a Python expert"`, `quotarouter chat --max-tokens 8000`
+
 ## [0.8.0] - 2026-04-24
 
 ### Added
