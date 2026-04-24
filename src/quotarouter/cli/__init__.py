@@ -18,6 +18,7 @@ from .commands import (
     reset_command,
     book_command,
     api_command,
+    qwen_command,
 )
 
 console = Console()
@@ -37,6 +38,10 @@ app.command(name="reset")(reset_command)
 app.command(name="book")(book_command)
 app.command(name="api")(api_command)
 
+# Register Qwen command if available
+if qwen_command:
+    app.add_typer(qwen_command, name="qwen")
+
 
 @app.callback()
 def main():
@@ -46,6 +51,7 @@ def main():
 
 if __name__ == "__main__":
     app()
+
 
 
 __all__ = ["app", "console"]

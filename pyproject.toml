@@ -30,6 +30,7 @@ dependencies = [
     "openai>=1.3.0",
     "typer[all]>=0.9.0",
     "rich>=13.0.0",
+    "httpx>=0.24.0",
 ]
 
 [project.optional-dependencies]
@@ -50,6 +51,10 @@ chainlit = [
     "chainlit>=0.8.0",
     "requests>=2.31.0",
 ]
+qwen = [
+    "httpx>=0.24.0",
+    "pydantic>=2.0.0",
+]
 all = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
@@ -62,6 +67,7 @@ all = [
     "pydantic>=2.0.0",
     "chainlit>=0.8.0",
     "requests>=2.31.0",
+    "httpx>=0.24.0",
 ]
 
 [project.scripts]

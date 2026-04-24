@@ -12,6 +12,12 @@ from .reset import reset_command
 from .book import book_command
 from .api import api_command
 
+# Import qwen command if available
+try:
+    from .qwen_command import app as qwen_command
+except ImportError:
+    qwen_command = None
+
 __all__ = [
     "status_command",
     "complete_command",
@@ -20,4 +26,5 @@ __all__ = [
     "reset_command",
     "book_command",
     "api_command",
+    "qwen_command",
 ]
