@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.5.0] - 2026-04-24
+## [0.6.0] - 2026-04-24
 
 ### Added
 - **REST API Server** - FastAPI-based REST API for LLM routing:
@@ -16,16 +16,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Server-Sent Events (SSE) streaming with NDJSON format
   - Auto-generated OpenAPI documentation (Swagger UI + ReDoc)
   - CORS middleware for cross-origin requests
-  - Perfect for Streamlit, web apps, microservices integration
+  - Perfect for Chainlit, web apps, microservices integration
   - Examples: `quotarouter api`, `quotarouter api --port 9000 --reload`, `quotarouter api --workers 4`
   - Full documentation in docs/API_SERVER.md
-- **Streamlit Dashboard** - Interactive web UI for QuotaRouter (examples/07_streamlit_integration.py):
-  - Real-time completion generation with streaming display
+- **Chainlit Chat App** - Real-time chat interface for QuotaRouter (examples/07_chainlit_integration.py):
+  - Interactive LLM chat with real-time streaming responses
   - Provider status monitor with quota visualization
-  - Book generation interface with progress tracking
-  - Configuration viewer
-  - One-click deployment with Streamlit sharing
-  - Run with: `streamlit run examples/07_streamlit_integration.py`
+  - Command-based interface (`/status` to check quotas)
+  - Beautiful chat UI with message history
+  - One-click deployment
+  - Run with: `chainlit run examples/07_chainlit_integration.py`
 - **Python API Client** - Example integration code (examples/08_api_integration.py):
   - QuotaRouterClient class for easy API interaction
   - Examples for all endpoints
@@ -58,9 +58,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 - Added docs/API_SERVER.md with complete API reference, examples, and deployment guides
-- Updated docs/API.md with new REST API section including curl examples, Python examples, and Streamlit integration
-- Added example files: 07_streamlit_integration.py, 08_api_integration.py
-- Added pyproject.toml optional dependencies groups: `[api]`, `[streamlit]`, `[all]`
+- Updated docs/API.md with new REST API section including curl examples, Python examples, and Chainlit integration
+- Added example files: 07_chainlit_integration.py, 08_api_integration.py
+- Added pyproject.toml optional dependencies groups: `[api]`, `[chainlit]`, `[all]`
 
 ## [0.3.0] - 2026-04-24
 

@@ -725,8 +725,8 @@ Get current configuration and available providers.
     "configured_providers": ["openrouter", "together", "mistral"],
     "storage_backend": "json",
     "verbose_mode": true,
-    "api_version": "0.5.0",
-    "quotarouter_version": "0.5.0"
+    "api_version": "0.6.0",
+    "quotarouter_version": "0.6.0"
 }
 ```
 

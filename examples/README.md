@@ -115,6 +115,66 @@ python 06_alibaba_test.py
 - ✅ Detailed quota information
 - ✅ Live API test (if key is set)
 
+### 7️⃣ [07_chainlit_integration.py](07_chainlit_integration.py)
+**Real-time chat app with Chainlit**
+
+A beautiful chat interface for QuotaRouter powered by Chainlit.
+
+Shows:
+- Real-time streaming responses
+- Chat history and context
+- Provider status monitoring
+- Command-based interface (`/status`)
+- Error handling and fallback
+
+```bash
+# Install Chainlit and dependencies
+pip install chainlit requests
+
+# Start the API server in another terminal
+quotarouter api
+
+# Run the Chainlit app
+chainlit run 07_chainlit_integration.py
+```
+
+Then open http://localhost:8000 in your browser for the Chainlit UI.
+
+**Features:**
+- 💬 Interactive chat with real-time streaming
+- 📊 `/status` command to check provider quotas
+- ⚡ Automatic fallback when quotas are exhausted
+- 🔀 Load balancing across available providers
+- 📱 Mobile-friendly interface
+
+### 8️⃣ [08_api_integration.py](08_api_integration.py)
+**Python API Client Library**
+
+A complete client library for programmatic API access.
+
+Shows:
+- QuotaRouterClient wrapper class
+- All endpoint examples
+- Streaming and batch processing
+- Error handling patterns
+- Configuration management
+
+```python
+from examples.api_integration import QuotaRouterClient
+
+client = QuotaRouterClient("http://localhost:8000")
+
+# Get status
+status = client.get_status()
+
+# Single completion
+response = client.complete("Explain quantum computing")
+
+# Streaming
+for chunk in client.stream("Tell a story"):
+    print(chunk["text"], end="", flush=True)
+```
+
 ## Common Patterns
 
 ### Error Handling

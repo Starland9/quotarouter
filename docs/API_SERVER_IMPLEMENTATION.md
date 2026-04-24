@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-A complete REST API server implementation for QuotaRouter that enables seamless integration with Streamlit, web applications, and other services.
+A complete REST API server implementation for QuotaRouter that enables seamless integration with Chainlit, web applications, and other services.
 
 ## ✅ What Was Implemented
 
@@ -74,39 +74,30 @@ quotarouter api --reload                # Development mode
 quotarouter api --workers 4             # Production mode
 ```
 
-### 4. **Streamlit Dashboard** (`examples/07_streamlit_integration.py` - 402 lines)
+### 4. **Chainlit Chat App** (`examples/07_chainlit_integration.py` - 270 lines)
 
-Complete interactive web UI with 4 tabs:
-
-1. **💬 Completion Tab**
-   - Text area for prompt input
-   - Temperature and max_tokens sliders
-   - Real-time generation
-   - Response display with metadata
-
-2. **🌊 Streaming Tab**
-   - Streaming response with real-time display
-   - Progress tracking
-   - Token and character counting
-
-3. **📊 Status Tab**
-   - Provider availability indicator
-   - Quota percentage visualization
-   - Token usage per provider
-   - Request rate monitoring
-
-4. **📖 Book Generator Tab**
-   - Book title, chapter count, word count inputs
-   - Writing style selector
-   - Progress bar
-   - Generation statistics
+Real-time chat interface powered by Chainlit:
 
 **Features:**
-- Configurable API URL
+- 💬 **Interactive Chat** - Real-time LLM responses with streaming display
+- 📊 **Provider Status Command** - `/status` command to check quota usage
+- 🔀 **Automatic Fallback** - Routes requests through available providers
+- ⚡ **Real-time Streaming** - Watch responses generate live
+- 🎯 **Welcome Message** - Shows active provider and available quota
+- 🔗 **API Integration** - Clean integration with QuotaRouter API
+- 🎨 **Modern UI** - Beautiful chat interface with message history
+- 📱 **Mobile-Friendly** - Works on all devices
+
+**Built-in Commands:**
+- `/status` - Display provider quota information
+- Regular text - Send prompts to the LLM
+
+**Features:**
+- Environment variable configuration (`QUOTAROUTER_API_URL`)
 - Error handling with user-friendly messages
-- Multi-column layouts
-- Expanders for detailed provider info
-- Metrics display with Rich formatting
+- Connection status indicators
+- Session management
+- Automatic provider information display
 
 ### 5. **Python Integration Example** (`examples/08_api_integration.py` - 308 lines)
 
@@ -143,7 +134,7 @@ print(f"Active: {status['active_provider']}")
 Complete API server guide including:
 - Quick start instructions
 - All endpoint documentation with examples
-- cURL, Python, Streamlit integration examples
+- cURL, Python, Chainlit integration examples
 - Flask web app example
 - Shell script example
 - Docker deployment guide
@@ -158,11 +149,11 @@ Complete API server guide including:
 **docs/API.md** - Added comprehensive REST API section with:
 - Endpoint reference
 - cURL and Python examples
-- Streamlit integration code
+- Chainlit integration code
 - Error response format
 - Status codes
 
-**CHANGELOG.md** - Detailed v0.5.0 release notes:
+**CHANGELOG.md** - Detailed v0.6.0 release notes:
 - REST API Server feature
 - Streamlit Dashboard
 - Python API Client
@@ -175,7 +166,7 @@ Complete API server guide including:
 ```toml
 [project.optional-dependencies]
 api = ["fastapi>=0.104.0", "uvicorn[standard]>=0.24.0", "pydantic>=2.0.0"]
-streamlit = ["streamlit>=1.28.0", "requests>=2.31.0"]
+chainlit = ["chainlit>=0.7.0", "requests>=2.31.0"]
 all = [... all dependencies ...]
 ```
 
@@ -193,7 +184,7 @@ src/quotarouter/cli/commands/
 └── api.py                (98 lines) - CLI command for server
 
 examples/
-├── 07_streamlit_integration.py  (402 lines) - Interactive dashboard
+├── 07_chainlit_integration.py    (270 lines) - Chat interface
 └── 08_api_integration.py        (308 lines) - Python client examples
 
 docs/
@@ -201,7 +192,7 @@ docs/
 └── API.md               (updated) - Added REST API reference
 ```
 
-**Total: 1,702 lines of new code + documentation**
+**Total: 1,617 lines of new code + documentation**
 
 ## 🎯 Key Features
 
@@ -225,7 +216,7 @@ docs/
 ✅ **Help Text** - Comprehensive usage examples
 
 ### Integration Features
-✅ **Streamlit Dashboard** - Interactive web UI
+✅ **Chainlit Chat App** - Real-time chat interface
 ✅ **Python Client** - Easy library integration
 ✅ **cURL Examples** - Shell script compatibility
 ✅ **Flask/Django** - Web framework integration
@@ -262,10 +253,10 @@ response = requests.post(
 print(response.json()["text"])
 ```
 
-### Streamlit Dashboard
+### Chainlit Chat App
 ```bash
-pip install streamlit requests
-streamlit run examples/07_streamlit_integration.py
+pip install chainlit requests
+chainlit run examples/07_chainlit_integration.py
 ```
 
 ### Streaming in Python
@@ -292,7 +283,7 @@ for line in response.iter_lines():
 | server.py | 351 | FastAPI app with 7 endpoints |
 | models.py | 276 | Pydantic request/response models |
 | api.py (CLI) | 98 | CLI command |
-| 07_streamlit_integration.py | 402 | Interactive dashboard |
+| 07_chainlit_integration.py | 270 | Chat interface |
 | 08_api_integration.py | 308 | Python client examples |
 | API_SERVER.md | 455 | Complete documentation |
 | **Total New Code** | **1,702** | **Complete API server** |
@@ -302,16 +293,16 @@ for line in response.iter_lines():
 1. **Production-Ready**: Uvicorn ASGI server, multi-worker support, error handling
 2. **Developer-Friendly**: Auto-reload, comprehensive docs, example code
 3. **Well-Documented**: 455 lines of guides, 3 documentation files
-4. **Tested Integration**: Real examples with Streamlit and Python
+4. **Tested Integration**: Real examples with Chainlit and Python
 5. **Type-Safe**: Full Pydantic validation for all requests/responses
 6. **Extensible**: Easy to add new endpoints or modify existing ones
 7. **Deployment-Ready**: Docker, Heroku, AWS examples included
-8. **User-Friendly**: Beautiful Streamlit dashboard for interactive use
+8. **User-Friendly**: Beautiful Chainlit chat app for interactive use
 
 ## 🔗 Integration Points
 
 The API server integrates seamlessly with:
-- **Streamlit**: Interactive web dashboards
+- **Chainlit**: Real-time chat interfaces
 - **Flask/Django**: Web application backends
 - **Airflow/Prefect**: Data pipeline orchestration
 - **Docker**: Container deployment
@@ -332,7 +323,7 @@ The API server integrates seamlessly with:
    - Endpoint overview
    - cURL examples
    - Python examples
-   - Streamlit integration
+   - Chainlit integration
 
 3. **CHANGELOG.md** (updated) - Release notes
    - Feature descriptions
@@ -341,7 +332,7 @@ The API server integrates seamlessly with:
 
 ## 🎓 Learning Resources
 
-- See [examples/07_streamlit_integration.py](../examples/07_streamlit_integration.py) for interactive UI
+- See [examples/07_chainlit_integration.py](../examples/07_chainlit_integration.py) for chat app
 - See [examples/08_api_integration.py](../examples/08_api_integration.py) for Python integration
 - Visit http://localhost:8000/docs for interactive API documentation
 - Read [docs/API_SERVER.md](../docs/API_SERVER.md) for deployment guides
@@ -379,6 +370,6 @@ Potential enhancements:
 
 ---
 
-**Version**: 0.5.0  
+**Version**: 0.6.0  
 **Status**: ✅ Production-Ready  
 **Total Implementation Time**: Complete with comprehensive docs and examples
