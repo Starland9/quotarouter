@@ -17,6 +17,7 @@ The Chainlit app will communicate with the API at http://localhost:8000
 """
 
 import os
+import json
 import chainlit as cl
 import requests
 from typing import Optional
@@ -140,9 +141,15 @@ async def main(message: cl.Message):
             if line:
                 chunk = line.decode("utf-8").strip()
                 if chunk:
-                    full_response += chunk
-                    msg.content = full_response
-                    await msg.update()
+                    try:
+                        data = json.loads(chunk)
+                        text = data.get("text", "")
+                        if text:
+                            full_response += text
+                            msg.content = full_response
+                            await msg.update()
+                    except json.JSONDecodeError:
+                        pass
 
         # Add provider info to message
         try:
