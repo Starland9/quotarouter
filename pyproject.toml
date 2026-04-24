@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quotarouter"
-version = "0.8.0"
+version = "0.9.0"
 description = "Quota-aware LLM routing engine with automatic provider fallback"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -48,7 +48,7 @@ api = [
     "pydantic>=2.0.0",
 ]
 chainlit = [
-    "chainlit>=0.8.0",
+    "chainlit>=0.9.0",
     "requests>=2.31.0",
 ]
 qwen = [
@@ -65,7 +65,7 @@ all = [
     "fastapi>=0.104.0",
     "uvicorn[standard]>=0.24.0",
     "pydantic>=2.0.0",
-    "chainlit>=0.8.0",
+    "chainlit>=0.9.0",
     "requests>=2.31.0",
     "httpx>=0.24.0",
 ]
