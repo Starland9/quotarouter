@@ -1,12 +1,11 @@
 """Unit tests for FreeRouter core functionality."""
 
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch, MagicMock
 
 from freerouter.core.types import (
     ProviderConfig,
     CompletionRequest,
-    CompletionResponse,
 )
 from freerouter.core.router import FreeRouter
 from freerouter.storage import InMemoryQuotaStorage

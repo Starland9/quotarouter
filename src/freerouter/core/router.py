@@ -15,7 +15,6 @@ from typing import Iterator, Optional
 
 from ..core.types import (
     CompletionRequest,
-    CompletionResponse,
     ProviderAdapter,
     ProviderConfig,
     QuotaStorage,

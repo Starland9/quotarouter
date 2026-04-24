@@ -24,7 +24,7 @@ def main():
 
     # Show status
     status = router.status()
-    print(f"\n✅ Stream completed!")
+    print("\n✅ Stream completed!")
     print(f"  - Total tokens: {status['session']['tokens']}")
 
 

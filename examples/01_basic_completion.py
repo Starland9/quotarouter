@@ -21,7 +21,7 @@ def main():
 
     # Check quota status
     status = router.status()
-    print(f"\n✅ Session stats:")
+    print("\n✅ Session stats:")
     print(f"  - Requests: {status['session']['requests']}")
     print(f"  - Tokens used: {status['session']['tokens']}")
     print(f"  - Fallbacks: {status['session']['fallbacks']}")

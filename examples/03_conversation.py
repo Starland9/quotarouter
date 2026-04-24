@@ -64,7 +64,7 @@ def main():
     # Show summary
     status = router.status()
     print(f"\n{'=' * 50}")
-    print(f"✅ Conversation complete")
+    print("✅ Conversation complete")
     print(f"  - Total requests: {status['session']['requests']}")
     print(f"  - Total tokens: {status['session']['tokens']}")
 

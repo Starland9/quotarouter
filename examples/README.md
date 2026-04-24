@@ -90,6 +90,31 @@ custom = ProviderConfig(id="my-api", ...)
 router = FreeRouter(providers=[custom])
 ```
 
+### 6️⃣ [06_alibaba_test.py](06_alibaba_test.py)
+**Alibaba DashScope Provider Test Suite**
+
+A comprehensive test script to verify Alibaba provider setup and functionality.
+
+Shows:
+- Provider configuration validation
+- API key verification
+- Router integration test
+- Provider selection logic
+- Quota status reporting
+- Live completion test (if configured)
+
+```bash
+python 06_alibaba_test.py
+```
+
+**Output includes:**
+- ✅ Configuration checks (ID, model, limits, URL)
+- ✅ API key validation
+- ✅ Router setup verification
+- ✅ Provider selection status
+- ✅ Detailed quota information
+- ✅ Live API test (if key is set)
+
 ## Common Patterns
 
 ### Error Handling
