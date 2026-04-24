@@ -153,7 +153,7 @@ Complete API server guide including:
 - Error response format
 - Status codes
 
-**CHANGELOG.md** - Detailed v0.7.0 release notes:
+**CHANGELOG.md** - Detailed v0.8.0 release notes:
 - REST API Server feature
 - Streamlit Dashboard
 - Python API Client
@@ -166,7 +166,7 @@ Complete API server guide including:
 ```toml
 [project.optional-dependencies]
 api = ["fastapi>=0.104.0", "uvicorn[standard]>=0.24.0", "pydantic>=2.0.0"]
-chainlit = ["chainlit>=0.7.0", "requests>=2.31.0"]
+chainlit = ["chainlit>=0.8.0", "requests>=2.31.0"]
 all = [... all dependencies ...]
 ```
 
@@ -370,6 +370,6 @@ Potential enhancements:
 
 ---
 
-**Version**: 0.7.0  
+**Version**: 0.8.0  
 **Status**: ✅ Production-Ready  
 **Total Implementation Time**: Complete with comprehensive docs and examples
