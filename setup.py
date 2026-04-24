@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="quotarouter",
-    version="0.2.0",
+    version="0.3.0",
     author="Landry Simo",
     author_email="landrysimo99@gmail.com",
     description="Quota-aware LLM routing engine with automatic provider fallback",
@@ -16,7 +16,14 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "openai>=1.3.0",
+        "typer[all]>=0.9.0",
+        "rich>=13.0.0",
     ],
+    entry_points={
+        "console_scripts": [
+            "quotarouter=quotarouter.cli:app",
+        ],
+    },
     extras_require={
         "dev": [
             "pytest>=7.0",

@@ -140,3 +140,4 @@ GITHUB_SECRETS_SETUP.md
 PUBLISH_CHECKLIST.md
 PUBLISH.md
 scripts/deploy_to_pypi.sh
+CLI_GUIDE.md

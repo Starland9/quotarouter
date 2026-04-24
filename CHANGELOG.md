@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-24
+
+### Added
+- **Command-line interface (CLI)** with comprehensive commands:
+  - `quotarouter status` - Show provider quota status with rich formatting
+  - `quotarouter complete` - Send simple completion requests
+  - `quotarouter stream` - Stream long responses with real-time output
+  - `quotarouter config` - Display configuration and API key variables
+  - `quotarouter reset` - Reset quota counters for testing
+- Dependency injection of `.env` file at package import time
+- Support for environment variable configuration without explicit `load_dotenv()`
+- Rich library integration for beautiful CLI output (tables, panels, colors)
+- CLI_GUIDE.md with comprehensive usage documentation
+- Example script for CLI usage patterns
+- Automatic help text for all commands
+
+### Changed
+- Dependencies: Added `typer[all]>=0.9.0` and `rich>=13.0.0`
+- Package now loads `.env` automatically on import
+- Console scripts entry point for `quotarouter` command
+
+### Fixed
+- Package discovery in `pyproject.toml` using `find` instead of explicit package list
+- `.env` loading now supports comments and quoted values
+
+### Documentation
+- Added CLI_GUIDE.md with command reference and examples
+- Added core development instructions in `.github/instructions/core-instructions.md`
+
 ## [0.2.0] - 2024-04-24
 
 ### Added
