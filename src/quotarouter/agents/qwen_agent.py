@@ -55,7 +55,9 @@ class QwenAgent:
             return f"Error: {response['error']}"
 
         assistant_message = response.get("text", "")
-        self.session_messages.append({"role": "assistant", "content": assistant_message})
+        self.session_messages.append(
+            {"role": "assistant", "content": assistant_message}
+        )
 
         return assistant_message
 
@@ -202,7 +204,7 @@ Include:
 {code}
 ```
 
-{f'Focus on: {improvements_str}' if improvements_str else 'Improve readability, performance, and maintainability.'}
+{f"Focus on: {improvements_str}" if improvements_str else "Improve readability, performance, and maintainability."}
 
 Provide:
 1. Refactored code
@@ -250,7 +252,9 @@ class AgentSessionManager:
         self.sessions: dict[str, QwenAgent] = {}
         self.current_session: Optional[str] = None
 
-    def create_session(self, session_id: str, router: Optional[FreeRouter] = None) -> QwenAgent:
+    def create_session(
+        self, session_id: str, router: Optional[FreeRouter] = None
+    ) -> QwenAgent:
         """Create new session."""
         agent = QwenAgent(router)
         self.sessions[session_id] = agent

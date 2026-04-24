@@ -43,7 +43,9 @@ async def script_example() -> None:
     providers = mcp.get_available_providers()
     if not providers:
         print("❌ No providers configured!")
-        print("Run interactive mode first to setup a provider: python -c 'from quotarouter.cli.qwen_integration import QwenCLI; import asyncio; asyncio.run(QwenCLI().run())'")
+        print(
+            "Run interactive mode first to setup a provider: python -c 'from quotarouter.cli.qwen_integration import QwenCLI; import asyncio; asyncio.run(QwenCLI().run())'"
+        )
         return
 
     # List available providers
@@ -118,7 +120,7 @@ async def routing_example() -> None:
     print("Example: Code Analysis with Routing")
     print("=" * 60)
 
-    code_sample = '''
+    code_sample = """
 def calculate_factorial(n):
     if n <= 1:
         return 1
@@ -126,7 +128,7 @@ def calculate_factorial(n):
 
 result = calculate_factorial(5)
 print(result)
-'''
+"""
 
     print("\nAnalyzing code with routing...")
     result = await agent.analyze_code(code_sample)
@@ -136,7 +138,9 @@ print(result)
     print("=" * 60)
     print("Quota Usage Summary")
     print("=" * 60)
-    print(f"Active provider: {router.active_provider.name if router.active_provider else 'None'}")
+    print(
+        f"Active provider: {router.active_provider.name if router.active_provider else 'None'}"
+    )
     print(f"Total tokens used: {router.total_tokens_used}")
     print(f"Total requests: {router.total_requests}")
 

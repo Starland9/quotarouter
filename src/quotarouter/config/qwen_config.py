@@ -13,10 +13,14 @@ class QwenProvider(BaseModel):
 
     id: str = Field(..., description="Model ID")
     name: str = Field(..., description="Provider name")
-    protocol: str = Field(default="openai", description="API protocol (openai, anthropic, gemini)")
+    protocol: str = Field(
+        default="openai", description="API protocol (openai, anthropic, gemini)"
+    )
     base_url: Optional[str] = Field(None, description="API base URL")
     api_key: Optional[str] = Field(None, description="API key")
-    env_key: Optional[str] = Field(None, description="Environment variable name for API key")
+    env_key: Optional[str] = Field(
+        None, description="Environment variable name for API key"
+    )
     description: str = Field(default="", description="Provider description")
 
 
@@ -26,7 +30,9 @@ class QwenConfig(BaseModel):
     providers: Dict[str, QwenProvider] = Field(default_factory=dict)
     default_provider: Optional[str] = Field(None, description="Default provider ID")
     default_model: Optional[str] = Field(None, description="Default model name")
-    settings_path: Path = Field(default_factory=lambda: Path.home() / ".qwen" / "settings.json")
+    settings_path: Path = Field(
+        default_factory=lambda: Path.home() / ".qwen" / "settings.json"
+    )
 
     class Config:
         arbitrary_types_allowed = True
@@ -69,7 +75,9 @@ class QwenConfig(BaseModel):
             # Build structure matching Qwen Code format
             data: Dict[str, Any] = {
                 "modelProviders": {},
-                "security": {"auth": {"selectedType": self.default_provider or "openai"}},
+                "security": {
+                    "auth": {"selectedType": self.default_provider or "openai"}
+                },
                 "model": {"name": self.default_model},
             }
 

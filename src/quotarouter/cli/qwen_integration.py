@@ -47,7 +47,9 @@ class QwenCLI:
         while True:
             try:
                 # Show current provider/model
-                provider = self.current_agent.mcp._get_provider(self.current_agent.model)
+                provider = self.current_agent.mcp._get_provider(
+                    self.current_agent.model
+                )
                 if provider:
                     model_str = f" [{provider.id}]"
                 else:
@@ -133,9 +135,7 @@ class QwenCLI:
         lines = []
         while True:
             try:
-                line = await asyncio.get_event_loop().run_in_executor(
-                    None, input
-                )
+                line = await asyncio.get_event_loop().run_in_executor(None, input)
                 if line.strip() == "EOF" or (not line and lines):
                     break
                 lines.append(line)
@@ -159,9 +159,7 @@ class QwenCLI:
         lines = []
         while True:
             try:
-                line = await asyncio.get_event_loop().run_in_executor(
-                    None, input
-                )
+                line = await asyncio.get_event_loop().run_in_executor(None, input)
                 if line.strip() == "EOF" or (not line and lines):
                     break
                 lines.append(line)
@@ -185,9 +183,7 @@ class QwenCLI:
         lines = []
         while True:
             try:
-                line = await asyncio.get_event_loop().run_in_executor(
-                    None, input
-                )
+                line = await asyncio.get_event_loop().run_in_executor(None, input)
                 if line.strip() == "EOF" or (not line and lines):
                     break
                 lines.append(line)
@@ -211,9 +207,7 @@ class QwenCLI:
         lines = []
         while True:
             try:
-                line = await asyncio.get_event_loop().run_in_executor(
-                    None, input
-                )
+                line = await asyncio.get_event_loop().run_in_executor(None, input)
                 if line.strip() == "EOF" or (not line and lines):
                     break
                 lines.append(line)
@@ -321,7 +315,9 @@ class QwenCLI:
 
         print("\n🔄 Active Sessions:")
         for session_id in sessions:
-            current = " ⭐" if session_id == self.session_manager.current_session else ""
+            current = (
+                " ⭐" if session_id == self.session_manager.current_session else ""
+            )
             print(f"  • {session_id}{current}")
 
     async def _manage_session(self, args: str) -> None:
@@ -334,7 +330,11 @@ class QwenCLI:
         action = parts[0].lower()
 
         if action == "new":
-            session_id = parts[1] if len(parts) > 1 else f"session_{len(self.session_manager.sessions)}"
+            session_id = (
+                parts[1]
+                if len(parts) > 1
+                else f"session_{len(self.session_manager.sessions)}"
+            )
             self.session_manager.create_session(session_id, self.router)
             self.current_agent = self.session_manager.get_current_session()
             print(f"✅ Created session: {session_id}")

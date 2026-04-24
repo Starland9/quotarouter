@@ -81,11 +81,16 @@ def chat(
 def analyze(
     language: str = typer.Option("python", "--lang", "-l", help="Programming language"),
     analysis_type: str = typer.Option(
-        "general", "--type", "-t", help="Type of analysis (general, bugs, performance, security)"
+        "general",
+        "--type",
+        "-t",
+        help="Type of analysis (general, bugs, performance, security)",
     ),
 ):
     """Analyze code with Qwen."""
-    console.print("[cyan]📝 Enter code to analyze (end with blank line or Ctrl+D):[/cyan]")
+    console.print(
+        "[cyan]📝 Enter code to analyze (end with blank line or Ctrl+D):[/cyan]"
+    )
 
     # Read code from stdin
     lines = []
@@ -110,7 +115,9 @@ def analyze(
         cli.session_manager.create_session("default")
         agent = cli.session_manager.get_current_session()
 
-        result = await agent.analyze_code(code, language=language, analysis_type=analysis_type)
+        result = await agent.analyze_code(
+            code, language=language, analysis_type=analysis_type
+        )
         console.print(result)
 
     try:
@@ -123,10 +130,14 @@ def analyze(
 @app.command()
 def test(
     language: str = typer.Option("python", "--lang", "-l", help="Programming language"),
-    framework: Optional[str] = typer.Option(None, "--framework", "-f", help="Testing framework"),
+    framework: Optional[str] = typer.Option(
+        None, "--framework", "-f", help="Testing framework"
+    ),
 ):
     """Generate tests for code."""
-    console.print("[cyan]📝 Enter code for test generation (end with blank line or Ctrl+D):[/cyan]")
+    console.print(
+        "[cyan]📝 Enter code for test generation (end with blank line or Ctrl+D):[/cyan]"
+    )
 
     # Read code from stdin
     lines = []
@@ -151,7 +162,9 @@ def test(
         cli.session_manager.create_session("default")
         agent = cli.session_manager.get_current_session()
 
-        result = await agent.generate_tests(code, language=language, framework=framework)
+        result = await agent.generate_tests(
+            code, language=language, framework=framework
+        )
         console.print(result)
 
     try:
@@ -166,7 +179,9 @@ def refactor(
     language: str = typer.Option("python", "--lang", "-l", help="Programming language"),
 ):
     """Refactor code."""
-    console.print("[cyan]📝 Enter code to refactor (end with blank line or Ctrl+D):[/cyan]")
+    console.print(
+        "[cyan]📝 Enter code to refactor (end with blank line or Ctrl+D):[/cyan]"
+    )
 
     # Read code from stdin
     lines = []
@@ -204,10 +219,14 @@ def refactor(
 @app.command()
 def explain(
     language: str = typer.Option("python", "--lang", "-l", help="Programming language"),
-    detail: str = typer.Option("medium", "--detail", "-d", help="Detail level (simple, medium, detailed)"),
+    detail: str = typer.Option(
+        "medium", "--detail", "-d", help="Detail level (simple, medium, detailed)"
+    ),
 ):
     """Explain code."""
-    console.print("[cyan]📝 Enter code to explain (end with blank line or Ctrl+D):[/cyan]")
+    console.print(
+        "[cyan]📝 Enter code to explain (end with blank line or Ctrl+D):[/cyan]"
+    )
 
     # Read code from stdin
     lines = []
@@ -248,7 +267,9 @@ def models():
 
     async def main():
         cli = QwenCLI()
-        models = cli.current_agent.mcp.get_available_providers() if cli.current_agent else []
+        models = (
+            cli.current_agent.mcp.get_available_providers() if cli.current_agent else []
+        )
 
         if not models:
             console.print("[yellow]No models configured[/yellow]")
