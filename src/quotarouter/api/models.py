@@ -18,6 +18,10 @@ class CompletionRequest(BaseModel):
     """Request model for single completion."""
 
     prompt: str = Field(..., min_length=1, description="The prompt to complete")
+    system: Optional[str] = Field(
+        "You are a helpful assistant.",
+        description="System prompt",
+    )
     temperature: float = Field(
         0.7, ge=0.0, le=2.0, description="Sampling temperature (0-2)"
     )
@@ -30,6 +34,7 @@ class CompletionRequest(BaseModel):
         json_schema_extra = {
             "example": {
                 "prompt": "Explain quantum computing in simple terms",
+                "system": "You are a helpful assistant.",
                 "temperature": 0.7,
                 "max_tokens": 500,
                 "top_p": 0.9,
@@ -41,6 +46,10 @@ class StreamingCompletionRequest(BaseModel):
     """Request model for streaming completion."""
 
     prompt: str = Field(..., min_length=1, description="The prompt to complete")
+    system: Optional[str] = Field(
+        "You are a helpful assistant.",
+        description="System prompt",
+    )
     temperature: float = Field(
         0.7, ge=0.0, le=2.0, description="Sampling temperature (0-2)"
     )
@@ -53,6 +62,7 @@ class StreamingCompletionRequest(BaseModel):
         json_schema_extra = {
             "example": {
                 "prompt": "Write a short story about a robot",
+                "system": "You are a helpful assistant.",
                 "temperature": 0.8,
                 "max_tokens": 1000,
             }

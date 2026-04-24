@@ -153,7 +153,7 @@ Complete API server guide including:
 - Error response format
 - Status codes
 
-**CHANGELOG.md** - Detailed v0.6.0 release notes:
+**CHANGELOG.md** - Detailed v0.7.0 release notes:
 - REST API Server feature
 - Streamlit Dashboard
 - Python API Client
@@ -370,6 +370,6 @@ Potential enhancements:
 
 ---
 
-**Version**: 0.6.0  
+**Version**: 0.7.0  
 **Status**: ✅ Production-Ready  
 **Total Implementation Time**: Complete with comprehensive docs and examples

@@ -50,7 +50,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(
     title="QuotaRouter API",
     description="Quota-aware LLM routing engine with multi-provider fallback",
-    version="0.6.0",
+    version="0.7.0",
     docs_url="/docs",
     redoc_url="/redoc",
     openapi_url="/openapi.json",
@@ -108,8 +108,8 @@ async def get_config() -> ConfigResponse:
         configured_providers=[p.name for p in router.providers],
         storage_backend="json",
         verbose_mode=router.verbose,
-        api_version="0.6.0",
-        quotarouter_version="0.6.0",
+        api_version="0.7.0",
+        quotarouter_version="0.7.0",
     )
 
 
@@ -182,9 +182,8 @@ async def complete(request: CompletionRequest) -> CompletionResponse:
     try:
         response = router.complete(
             prompt=request.prompt,
-            temperature=request.temperature,
+            system=request.system,
             max_tokens=request.max_tokens,
-            top_p=request.top_p,
         )
 
         return CompletionResponse(
@@ -239,9 +238,8 @@ async def stream(request: StreamingCompletionRequest) -> StreamingResponse:
 
             for chunk in router.complete_stream(
                 prompt=request.prompt,
-                temperature=request.temperature,
+                system=request.system,
                 max_tokens=request.max_tokens,
-                top_p=request.top_p,
             ):
                 # chunk is typically a dict with 'text', 'provider', 'tokens_used', etc.
                 if isinstance(chunk, dict):
@@ -472,7 +470,7 @@ async def root() -> dict[str, str]:
     """
     return {
         "name": "QuotaRouter API",
-        "version": "0.6.0",
+        "version": "0.7.0",
         "description": "Quota-aware LLM routing engine with multi-provider fallback",
         "docs": "/docs",
         "health": "/health",
