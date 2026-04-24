@@ -25,6 +25,7 @@ QuotaRouter automatically routes your LLM requests across multiple free-tier pro
 
 ```bash
 pip install quotarouter ou pip install git+https://github.com/Starland9/quotarouter.git
+quotarouter --help
 ```
 
 Or from source:
