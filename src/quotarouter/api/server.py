@@ -26,7 +26,7 @@ from typing import AsyncGenerator
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
 
 from quotarouter import FreeRouter
 
@@ -125,21 +125,21 @@ async def get_status() -> StatusResponse:
 
     providers_status = []
     for provider in router.providers:
-        quota_data = router.storage.get_quota(provider.name)
-
         # Calculate quota percentage
         token_percentage = 0.0
-        if provider.token_limit and provider.token_limit > 0:
-            token_percentage = (quota_data.tokens_used / provider.token_limit) * 100
+        if provider.daily_token_limit and provider.daily_token_limit > 0:
+            token_percentage = (
+                provider.tokens_used_today / provider.daily_token_limit
+            ) * 100
 
         providers_status.append(
             ProviderStatus(
                 name=provider.name,
-                available=not quota_data.is_exhausted,
-                tokens_used=quota_data.tokens_used,
-                token_limit=provider.token_limit,
-                requests_used=quota_data.requests_used,
-                request_limit=provider.request_limit,
+                available=not provider.is_exhausted,
+                tokens_used=provider.tokens_used_today,
+                token_limit=provider.daily_token_limit,
+                requests_used=provider.requests_this_minute,
+                request_limit=provider.rpm_limit,
                 quota_percentage=min(token_percentage, 100.0),
                 priority=provider.priority,
             )
@@ -147,11 +147,7 @@ async def get_status() -> StatusResponse:
 
     # Find first available provider
     active_provider = next(
-        (
-            p.name
-            for p in router.providers
-            if not router.storage.get_quota(p.name).is_exhausted
-        ),
+        (p.name for p in router.providers if not p.is_exhausted),
         router.providers[0].name if router.providers else "unknown",
     )
 
@@ -436,25 +432,31 @@ async def reset_quotas(
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request, exc):
     """Custom HTTP exception handler."""
-    return {
+    error_detail = {
         "error": exc.detail.get("error", "http_error")
         if isinstance(exc.detail, dict)
         else "http_error",
         "message": exc.detail.get("message", str(exc.detail))
         if isinstance(exc.detail, dict)
         else str(exc.detail),
-        "status_code": exc.status_code,
     }
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=error_detail,
+    )
 
 
 @app.exception_handler(Exception)
 async def general_exception_handler(request, exc):
     """General exception handler."""
     logger.error(f"Unhandled exception: {exc}", exc_info=True)
-    return ErrorResponse(
-        error="internal_error",
-        message="An unexpected error occurred",
-        details=str(exc),
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "internal_error",
+            "message": "An unexpected error occurred",
+            "details": str(exc),
+        },
     )
 
 
