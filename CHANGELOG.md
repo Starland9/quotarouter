@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-24
+
+### Added
+- **Modular CLI architecture** - Reorganized command-line interface:
+  - Each command in its own module under `cli/commands/` for maintainability
+  - Shared utilities in `cli/utils/` (error handling, Rich components)
+  - New command registration pattern with explicit naming
+  - Easy to add new commands without modifying existing ones
+- **New `quotarouter book` command** - Write entire books with automatic retry:
+  - Generate multiple chapters sequentially
+  - Auto-retry failed chapters (configurable, default 3 retries)
+  - Checkpoint after each successful chapter
+  - Resume from last checkpoint if interrupted
+  - Beautiful progress bar with chapter tracking
+  - Markdown output with chapter structure
+  - Provider fallback when quota exhausts
+  - Usage: `quotarouter book "Title" --chapters 5 --chapter-length 2000 -o book.md`
+- **CLI_ARCHITECTURE.md** - Complete guide for CLI module structure and adding new commands
+
+### Changed
+- CLI refactored from monolithic `cli.py` to modular `cli/` package structure
+- Command names now clean (e.g., `quotarouter status` instead of derived from function names)
+- CLI startup faster due to lazy imports within command modules
+
+### Documentation
+- Added docs/CLI_ARCHITECTURE.md with module structure and development guidelines
+
 ## [0.3.0] - 2026-04-24
 
 ### Added
