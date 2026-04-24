@@ -13,11 +13,13 @@ FreeRouter strictly follows **SOLID principles** to ensure maintainability and e
   - `router.py` → Routing logic only
   - `quota_manager.py` → Storage persistence only
   - `openai_compatible.py` → API communication only
+  - `cli.py` → CLI command handling only
 
 - **O**pen/Closed: Code is open for extension, closed for modification
   - Add new providers via `ProviderConfig` without modifying `FreeRouter`
   - Add new adapters via `ProviderAdapter` ABC without changing router logic
   - Add new storage backends via `QuotaStorage` ABC without modifying router
+  - Add new CLI commands via Typer without modifying core router
 
 - **L**iskov Substitution: Subtypes are interchangeable for base types
   - `InMemoryQuotaStorage` and `JSONQuotaStorage` both implement `QuotaStorage`
@@ -26,12 +28,14 @@ FreeRouter strictly follows **SOLID principles** to ensure maintainability and e
 
 - **I**nterface Segregation: Depend on focused interfaces, not bloated ones
   - `ProviderAdapter` has only 2 methods: `complete()` and `complete_stream()`
-  - `QuotaStorage` has only 2 methods: `load_quotas()` and `save_quotas()`
+  - `QuotaStorage` has only 2 methods: `load_quotas
+  - CLI commands accept only needed parameters()` and `save_quotas()`
   - Router doesn't depend on OpenAI client directly
 
 - **D**ependency Inversion: Depend on abstractions, not concrete implementations
   - `FreeRouter.__init__()` accepts abstract `ProviderAdapter` and `QuotaStorage`
   - Concrete implementations are injected at runtime
+  - CLI uses injected router instance for flexibility
   - Easy to swap implementations for testing or alternative backends
 
 ### 2. Module Organization
@@ -39,7 +43,9 @@ FreeRouter strictly follows **SOLID principles** to ensure maintainability and e
 **NEVER** deviate from this structure:
 
 ```
-src/quotarouter/
+src/__init__.py          ← Package entry, .env loading
+├── __main__.py          ← Python module execution
+├── cli.py               ← CLI command definitions (NEW)
 ├── core/
 │   ├── types.py         ← Abstract interfaces & data models ONLY
 │   └── router.py        ← Main routing logic ONLY
@@ -54,6 +60,8 @@ src/quotarouter/
 **Rules:**
 - New code goes in `src/quotarouter/`, NOT at root
 - Never create new directories without justification
+- Keep module names singular and descriptive
+- CLI logic goes in `cli.py` only, not scattered across modulesfication
 - Keep module names singular and descriptive
 
 ### 3. Import Paths
@@ -116,7 +124,49 @@ from ..storage.quota_manager import JSONQuotaStorage  # Should inject instead
    - Providers use OpenAI-compatible API ✅
    - Other APIs require new `ProviderAdapter` implementation
 
-### 5. Testing Standards
+### 5. CLI Pattern (NEW)
+
+**When adding a new CLI command:**
+
+1. **Define command in `cli.py`** using `@app.command()`:
+   ```python
+   @app.command()
+   def my_command(
+       arg1: str = typer.Argument(..., help="Description"),
+       opt1: str = typer.Option("default", "--opt1", help="Description"),
+   ):
+       """Command description for help text."""
+       try:
+           # Implementation
+           console.print("[green]Success[/green]")
+       except Exception as e:
+           console.print(f"[red]Error:[/red] {e}", file=sys.stderr)
+           raise typer.Exit(code=1)
+   ```
+
+2. **Use Rich for output** (console, tables, panels):
+   ```python
+   from rich.console import Console
+   from rich.table import Table
+   
+   console = Console()
+   table = Table(title="Title")
+   table.add_column("Column")
+   console.print(table)
+   ```
+
+3. **Handle errors gracefully**:
+   - Catch specific exceptions only
+   - Print helpful error messages
+   - Exit with code 1 on error
+   - Never let exceptions bubble up unhandled
+
+4. **Test CLI commands**:
+   - Test in isolation (mock router if needed)
+   - Test error cases
+   - Verify exit codes
+
+### 6. Testing Standards
 
 **Test organization:**
 - Tests go in `tests/test_*.py` matching module names
@@ -237,7 +287,57 @@ class DatabaseQuotaStorage(QuotaStorage):
 
 Then inject: `router = FreeRouter(storage=DatabaseQuotaStorage())`
 
-### 10. Documentation Updates
+### 10. Environment Variable Loading
+
+**Pattern for `.env` file handling:**
+
+The package automatically loads `.env` from the current working directory on import:
+
+```python
+# In __init__.py - automatically runs on package import
+def _load_dotenv_file(env_path: Path) -> None:
+    if not env_path.exists():
+        return
+    # Parse and load into os.environ
+    
+_load_dotenv()  # Called at package import time
+```
+
+**Rules:**
+- `.env` is loaded from `Path.cwd() / ".env"` (current working directory)
+- Only loads if file exists
+- Skips comments (lines starting with `#`)
+- Supports `export` prefix and quoted values
+- Never overwrites existing environment variables
+- Users can manually set env vars instead of using `.env`
+
+### 11. Versioning
+
+**Version format** (Semantic Versioning):
+- **Major**: Breaking changes to public API
+- **Minor**: New features (backward compatible)
+- **Patch**: Bug fixes
+
+**Update checklist** before release:
+
+1. Update version in all files:
+   - `pyproject.toml` → `[project] version = "x.y.z"`
+   - `setup.py` → `version="x.y.z"`
+   - `src/quotarouter/__init__.py` → `__version__ = "x.y.z"`
+
+2. Update `CHANGELOG.md`:
+   - Move `[Unreleased]` items to new version section
+   - Add date in format `YYYY-MM-DD`
+   - Categorize changes: Added, Changed, Fixed, Removed, Deprecated
+
+3. Commit and tag:
+   ```bash
+   git add CHANGELOG.md pyproject.toml setup.py src/quotarouter/__init__.py
+   git commit -m "chore: release v0.3.0"
+   git tag -a v0.3.0 -m "Release version 0.3.0"
+   ```
+
+### 12. Documentation Updates
 
 **When changing code, update:**
 - Docstrings in code
@@ -245,16 +345,25 @@ Then inject: `router = FreeRouter(storage=DatabaseQuotaStorage())`
 - `docs/API.md` if public API changes
 - `docs/ARCHITECTURE.md` if pattern changes
 - `README.md` for user-facing features
+- `CLI_GUIDE.md` for CLI changes
 - `CHANGELOG.md` for version notes
+- `.github/instructions/core-instructions.md` if adding patterns
 
 ## Common Patterns
 
 ### Adding a Feature
-1. Create minimal interface in `core/types.py`
+1. Create minimal interface in `core/types.py` if needed
 2. Implement concrete version in appropriate module
 3. Inject via `__init__()` parameters
 4. Test in isolation
 5. Document in docstrings and markdown
+
+### Adding a CLI Command
+1. Add `@app.command()` function to `cli.py`
+2. Use Rich for formatted output
+3. Handle errors with try/except and meaningful messages
+4. Write tests for command behavior
+5. Document in CLI_GUIDE.md
 
 ### Fixing a Bug
 1. Write failing test first
@@ -279,6 +388,8 @@ Then inject: `router = FreeRouter(storage=DatabaseQuotaStorage())`
 ❌ **Monolithic functions** - Break into smaller, testable units
 ❌ **Skipped tests** - Fix or remove, never skip
 ❌ **Mixed concerns** - One class = one responsibility
+❌ **CLI logic in core** - Keep CLI separate in `cli.py`
+❌ **Unformatted output** - Use Rich for tables, panels, colors
 
 ## Review Checklist
 
@@ -289,17 +400,19 @@ Before opening a PR, verify:
 - [ ] Code formatted with `black` and `isort`
 - [ ] Type hints added to new functions
 - [ ] Docstrings updated/added
-- [ ] Documentation updated (`README.md`, `docs/`)
+- [ ] Documentation updated (`README.md`, `docs/`, `CLI_GUIDE.md`)
 - [ ] No anti-patterns introduced
-- [ ] CHANGELOG.md updated
+- [ ] CHANGELOG.md updated with version and changes
+- [ ] Version number updated in `pyproject.toml`, `setup.py`, `__init__.py`
 
 ## Questions or Clarifications
 
 If unsure about a pattern, check:
 1. `docs/ARCHITECTURE.md` for design patterns
-2. Existing code in similar modules for examples
-3. This instructions file for rules
-4. Open an issue for discussion
+2. `CLI_GUIDE.md` for CLI usage patterns
+3. Existing code in similar modules for examples
+4. This instructions file for rules
+5. Open an issue for discussion
 
 ---
 
