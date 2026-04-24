@@ -41,6 +41,28 @@ dev = [
     "mypy>=1.0",
     "isort>=5.0",
 ]
+api = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.0.0",
+]
+streamlit = [
+    "streamlit>=1.28.0",
+    "requests>=2.31.0",
+]
+all = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "mypy>=1.0",
+    "isort>=5.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.0.0",
+    "streamlit>=1.28.0",
+    "requests>=2.31.0",
+]
 
 [project.scripts]
 quotarouter = "quotarouter.cli:app"

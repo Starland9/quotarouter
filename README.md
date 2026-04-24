@@ -24,7 +24,7 @@ QuotaRouter automatically routes your LLM requests across multiple free-tier pro
 ### Installation
 
 ```bash
-pip install quotarouter
+pip install quotarouter ou pip install git+https://github.com/Starland9/quotarouter.git
 ```
 
 Or from source:
@@ -55,6 +55,12 @@ cp .env.example .env
 router = FreeRouter()
 
 # Simple completion
+
+```python
+from quotarouter import FreeRouter
+
+router = FreeRouter()
+
 response = router.complete("Explain quantum computing in simple terms")
 print(response)
 ```

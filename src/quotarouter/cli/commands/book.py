@@ -276,5 +276,6 @@ def book_command(
             raise typer.Exit(code=1)
 
     except Exception as e:
-        console.print(f"[red]Error:[/red] {e}", file=sys.stderr)
-        raise typer.Exit(code=1)
+        from ..utils.errors import print_error
+
+        print_error(str(e), exit_code=1)

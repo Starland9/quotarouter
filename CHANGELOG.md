@@ -10,6 +10,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4.0] - 2026-04-24
 
 ### Added
+- **REST API Server** - FastAPI-based REST API for LLM routing:
+  - `quotarouter api` command to launch the server (default: 0.0.0.0:8000)
+  - Endpoints for completions, streaming, status, book generation, config
+  - Server-Sent Events (SSE) streaming with NDJSON format
+  - Auto-generated OpenAPI documentation (Swagger UI + ReDoc)
+  - CORS middleware for cross-origin requests
+  - Perfect for Streamlit, web apps, microservices integration
+  - Examples: `quotarouter api`, `quotarouter api --port 9000 --reload`, `quotarouter api --workers 4`
+  - Full documentation in docs/API_SERVER.md
+- **Streamlit Dashboard** - Interactive web UI for QuotaRouter (examples/07_streamlit_integration.py):
+  - Real-time completion generation with streaming display
+  - Provider status monitor with quota visualization
+  - Book generation interface with progress tracking
+  - Configuration viewer
+  - One-click deployment with Streamlit sharing
+  - Run with: `streamlit run examples/07_streamlit_integration.py`
+- **Python API Client** - Example integration code (examples/08_api_integration.py):
+  - QuotaRouterClient class for easy API interaction
+  - Examples for all endpoints
+  - Streaming, book generation, status monitoring
+  - Comprehensive usage patterns
+- **API Dependencies** - Optional package extras:
+  - Install with: `pip install quotarouter[api]` (FastAPI, Uvicorn, Pydantic)
+  - Or install all: `pip install quotarouter[all]`
 - **Modular CLI architecture** - Reorganized command-line interface:
   - Each command in its own module under `cli/commands/` for maintainability
   - Shared utilities in `cli/utils/` (error handling, Rich components)
@@ -24,15 +48,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Markdown output with chapter structure
   - Provider fallback when quota exhausts
   - Usage: `quotarouter book "Title" --chapters 5 --chapter-length 2000 -o book.md`
-- **CLI_ARCHITECTURE.md** - Complete guide for CLI module structure and adding new commands
 
 ### Changed
 - CLI refactored from monolithic `cli.py` to modular `cli/` package structure
 - Command names now clean (e.g., `quotarouter status` instead of derived from function names)
 - CLI startup faster due to lazy imports within command modules
+- Rich Console error handling improved (removed invalid `file=sys.stderr` parameter usage)
+- All commands now use centralized error handling utilities
 
 ### Documentation
-- Added docs/CLI_ARCHITECTURE.md with module structure and development guidelines
+- Added docs/API_SERVER.md with complete API reference, examples, and deployment guides
+- Updated docs/API.md with new REST API section including curl examples, Python examples, and Streamlit integration
+- Added example files: 07_streamlit_integration.py, 08_api_integration.py
+- Added pyproject.toml optional dependencies groups: `[api]`, `[streamlit]`, `[all]`
 
 ## [0.3.0] - 2026-04-24
 

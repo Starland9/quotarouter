@@ -78,5 +78,6 @@ def status_command():
         console.print(Panel(summary, expand=False))
 
     except Exception as e:
-        console.print(f"[red]Error:[/red] {e}", file=sys.stderr)
-        raise typer.Exit(code=1)
+        from ..utils.errors import print_error
+
+        print_error(str(e), exit_code=1)

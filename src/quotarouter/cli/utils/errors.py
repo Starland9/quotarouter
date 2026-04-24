@@ -8,6 +8,7 @@ from typing import NoReturn
 from rich.console import Console
 
 console = Console()
+error_console = Console(file=sys.stderr, style="bold red")
 
 
 def print_error(message: str, exit_code: int = 1) -> NoReturn:
@@ -18,7 +19,7 @@ def print_error(message: str, exit_code: int = 1) -> NoReturn:
         message: Error message to display
         exit_code: Exit code (default 1)
     """
-    console.print(f"[red]Error:[/red] {message}", file=sys.stderr)
+    error_console.print(f"[red]Error:[/red] {message}")
     raise SystemExit(exit_code)
 
 

@@ -10,6 +10,7 @@ from .stream import stream_command
 from .config import config_command
 from .reset import reset_command
 from .book import book_command
+from .api import api_command
 
 __all__ = [
     "status_command",
@@ -18,4 +19,5 @@ __all__ = [
     "config_command",
     "reset_command",
     "book_command",
+    "api_command",
 ]
